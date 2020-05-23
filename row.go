@@ -7,6 +7,7 @@ import (
 	"time"
 )
 
+// Row holds a single record
 type Row struct {
 	tuple map[string]interface{}
 }

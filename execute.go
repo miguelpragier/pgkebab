@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-// Execute sends the given sql query to database server. typically update, delete and insert, and return the number of affected rows
+// Exec sends the given sql query to database server. typically update, delete and insert, and return the number of affected rows
 func (l *DBLink) Exec(sqlQuery string, args ...interface{}) (int64, error) {
 	if !l.supposedReady {
 		return 0, fmt.Errorf("connection not properly initialized")

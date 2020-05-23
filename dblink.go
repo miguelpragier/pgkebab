@@ -79,31 +79,33 @@ func (l *DBLink) connectLoop() error {
 	}
 
 	for {
-		if err := l.connectSimple(); err == nil {
+		err := l.connectSimple()
+
+		if err == nil {
 			return nil
-		} else {
-			if time.Now().Before(connectionTimerStart.Add(time.Duration(l.connectionAttemptsMaxMinutes) * time.Minute)) {
-				if l.debugPrint {
-					log.Printf("database connection time limit reached without success. %v\n", err)
-				}
-
-				return fmt.Errorf("database connection time limit reached without success. %v", err)
-			}
-
-			connectionAttempt++
-
-			if connectionAttempt >= l.connectionAttemptsMax {
-				if l.debugPrint {
-					log.Printf("database connection attempts limit reached without success. %v\n", err)
-				}
-
-				return fmt.Errorf("database connection attempts limit reached without success. %v", err)
-			}
-
-			waitNextAttempt()
-
-			continue
 		}
+
+		if time.Now().Before(connectionTimerStart.Add(time.Duration(l.connectionAttemptsMaxMinutes) * time.Minute)) {
+			if l.debugPrint {
+				log.Printf("database connection time limit reached without success. %v\n", err)
+			}
+
+			return fmt.Errorf("database connection time limit reached without success. %v", err)
+		}
+
+		connectionAttempt++
+
+		if connectionAttempt >= l.connectionAttemptsMax {
+			if l.debugPrint {
+				log.Printf("database connection attempts limit reached without success. %v\n", err)
+			}
+
+			return fmt.Errorf("database connection attempts limit reached without success. %v", err)
+		}
+
+		waitNextAttempt()
+
+		continue
 	}
 }
 
@@ -122,6 +124,7 @@ func (l *DBLink) Connect() error {
 	return l.connectLoop()
 }
 
+// NewConnected returns an already connected instance of dbLink, ready for use
 func NewConnected(opts *DBLinkOptions) (*DBLink, error) {
 	dbl, err := New(opts)
 
@@ -158,7 +161,7 @@ func (l *DBLink) Database() *sql.DB {
 	return l.db
 }
 
-// IsEmptyErr() returns true if the given error is sql.ErrNoRows
+// IsEmptyErr returns true if the given error is sql.ErrNoRows
 func (l *DBLink) IsEmptyErr(err error) bool {
 	if err == nil {
 		return false
@@ -167,7 +170,7 @@ func (l *DBLink) IsEmptyErr(err error) bool {
 	return errors.Is(err, sql.ErrNoRows)
 }
 
-// New return an instance of database, configured with options.
+// New returns an instance of database, configured with options.
 func New(opts *DBLinkOptions) (*DBLink, error) {
 	if opts == nil {
 		return nil, fmt.Errorf("undefined options")

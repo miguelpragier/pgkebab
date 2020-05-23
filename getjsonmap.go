@@ -29,12 +29,14 @@ func (l *DBLink) MustGetJSONMap(sqlQuery string, args ...interface{}) (map[strin
 
 	m := make(map[string]interface{})
 
-	if data, err := j.MarshalJSON(); err != nil {
+	data, err := j.MarshalJSON()
+
+	if err != nil {
 		return nil, err
-	} else {
-		if err0 := json.Unmarshal(data, &m); err0 != nil {
-			return nil, err0
-		}
+	}
+
+	if err0 := json.Unmarshal(data, &m); err0 != nil {
+		return nil, err0
 	}
 
 	return m, nil

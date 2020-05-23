@@ -27,12 +27,14 @@ func (l *DBLink) MustGetJSONStruct(target interface{}, sqlQuery string, args ...
 		return err
 	}
 
-	if data, err := j.MarshalJSON(); err != nil {
+	data, err := j.MarshalJSON()
+
+	if err != nil {
 		return err
-	} else {
-		if err0 := json.Unmarshal(data, &target); err0 != nil {
-			return err0
-		}
+	}
+
+	if err0 := json.Unmarshal(data, &target); err0 != nil {
+		return err0
 	}
 
 	return nil
