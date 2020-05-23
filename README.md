@@ -5,6 +5,7 @@ GOLang PostgreSQL Helper Operators Over [PQ](https://github.com/lib/pq/)
 <br>
 <br>
 [![Go Report Card](https://goreportcard.com/badge/github.com/miguelpragier/pgkebab)](https://goreportcard.com/report/github.com/miguelpragier/pgkebab)
+
 <br>
 ##### Simple Sample
 ```golang
@@ -45,3 +46,7 @@ func main(){
 ```
 ##### Dependencies:
 [pq - Pure Go Postgres driver for database/sql](https://github.com/lib/pq)
+<br>
+
+---
+![Requires.io](https://img.shields.io/requires/github.com/lib/pq)
