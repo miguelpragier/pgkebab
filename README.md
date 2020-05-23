@@ -4,9 +4,8 @@ GOLang PostgreSQL Helper Operators Over [PQ](https://github.com/lib/pq/)
 ![PGKebab](./etc/img/pgkebab.png "PGKebab")
 <br>
 <br>
-[![Go Report Card](https://goreportcard.com/badge/github.com/miguelpragier/pgkebab)](https://goreportcard.com/report/github.com/miguelpragier/pgkebab)
+<!-- [![Go Report Card](https://goreportcard.com/badge/github.com/miguelpragier/pgkebab )](https://goreportcard.com/report/github.com/miguelpragier/pgkebab) -->
 
-<br>
 ##### Simple Sample
 ```golang
 package main
@@ -49,4 +48,4 @@ func main(){
 <br>
 
 ---
-![Requires.io](https://img.shields.io/requires/github.com/lib/pq)
+<!-- ![Requires.io](https://img.shields.io/requires/github.com/lib/pq) -->
