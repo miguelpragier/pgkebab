@@ -5,8 +5,6 @@ import (
 	"database/sql"
 	"fmt"
 	"time"
-
-	_ "github.com/lib/pq"
 )
 
 // MustGetFloat64 returns the query result's single value as a float64

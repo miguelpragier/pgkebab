@@ -43,3 +43,5 @@ func main(){
     }
 }
 ```
+##### Dependencies:
+[pq - Pure Go Postgres driver for database/sql](https://github.com/lib/pq)

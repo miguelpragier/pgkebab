@@ -5,8 +5,6 @@ import (
 	"database/sql"
 	"fmt"
 	"time"
-
-	_ "github.com/lib/pq"
 )
 
 // MustGetBool returns the query result's single value as a boolean

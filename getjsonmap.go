@@ -5,8 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"time"
-
-	_ "github.com/lib/pq"
 )
 
 // MustGetJSONMap returns the query result's single column value as map

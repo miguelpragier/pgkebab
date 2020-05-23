@@ -1,6 +1,7 @@
 package pgkebab
 
 import (
+	// PostgreSql Driver
 	_ "github.com/lib/pq"
 )
 

@@ -69,7 +69,7 @@ func (o DBLinkOptions) print() {
 }
 
 // Options is a helper to initializate a new DBLinkOptions structure
-// reconnectionAttemptsMax is the max number of (re)connection attempts. If zeroed, keeps trying undefinitely or until reconnectionAttemptsMaxMinutes is reached.
+// reconnectionAttemptsMax is the max number of (re)connection attempts. If zeroed, keeps trying indefinitely or until reconnectionAttemptsMaxMinutes is reached.
 // reconnectionAttemptsMaxMinutes is the max allowed time to insist in (re)connect. If zeroed, keeps trying undefinetely or until reconnectionAttemptsMax is reached
 // intervalBetweenReconnectionAttemptsSeconds is the sleepin' time lapse between (re)connection attempts
 // debugPrint if true, prints debug/log messages to stdout with stdlib log.Printf() function

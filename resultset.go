@@ -1,13 +1,13 @@
 package pgkebab
 
 import (
-	"database/sql"
 	"encoding/json"
 	"fmt"
 )
 
 const resultsetFirstRow uint = 0
 
+// Resultset contains rows and result metadata
 type Resultset struct {
 	pointer     uint
 	columns     []string
@@ -17,6 +17,7 @@ type Resultset struct {
 	debugPrint  bool
 }
 
+// Count returns the number of rows in this resultset
 func (r Resultset) Count() int {
 	return len(r.records)
 }
@@ -61,18 +62,18 @@ func (r *Resultset) Row() (Row, error) {
 	return r.records[r.pointer-1], nil
 }
 
+// Rewind set the internal cursor at first row
 func (r *Resultset) Rewind() {
 	r.pointer = resultsetFirstRow
 }
 
+// JSON returns a json resultset representation
 func (r Resultset) JSON() (string, error) {
-	if len(r.records) > 0 {
-		if str, err := json.Marshal(r.records); err == nil {
-			return string(str), nil
-		} else {
-			return "", err
-		}
+	if len(r.records) < 1 {
+		return "[]", nil
 	}
 
-	return "", sql.ErrNoRows
+	str, err := json.Marshal(r.records)
+
+	return string(str), err
 }
