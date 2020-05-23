@@ -3,6 +3,7 @@ package pgkebab
 import (
 	"encoding/json"
 	"fmt"
+	"os"
 	"testing"
 	"time"
 )
@@ -10,7 +11,14 @@ import (
 var db *DBLink
 
 func TestConnect(t *testing.T) {
-	cs := ConnStringDirect("postgres://pgkebab:001001001001@localhost/pgkebab?sslmode=disable")
+	var cs *ConnectionString
+
+	if os.Getenv("{APPDBCS}") != "" {
+		cs = ConnStringEnvVar("{APPDBCS}")
+	} else {
+		cs = ConnStringDirect("postgres://pgkebab:001001001001@localhost/pgkebab?sslmode=disable")
+	}
+
 	opts := Options(cs, 10, 10, 5, 5, 10, true)
 
 	if _db, err := NewConnected(opts); err != nil {
