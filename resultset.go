@@ -73,7 +73,17 @@ func (r Resultset) JSON() (string, error) {
 		return "[]", nil
 	}
 
-	str, err := json.Marshal(r.records)
+	m := make([]map[string]interface{}, len(r.records))
+
+	for i, row := range r.records {
+		m[i] = make(map[string]interface{})
+
+		for k, v := range row.tuple {
+			m[i][k] = v
+		}
+	}
+
+	str, err := json.Marshal(m)
 
 	return string(str), err
 }
