@@ -67,10 +67,11 @@ func (r *Resultset) Rewind() {
 	r.pointer = resultsetFirstRow
 }
 
-// JSON returns a json resultset representation
-func (r Resultset) JSON() (string, error) {
+// Map returns the resultset as a []map[string]interface{}
+// If the resultset is empty, returns nil
+func (r Resultset) Map() []map[string]interface{} {
 	if len(r.records) < 1 {
-		return "[]", nil
+		return nil
 	}
 
 	m := make([]map[string]interface{}, len(r.records))
@@ -83,7 +84,22 @@ func (r Resultset) JSON() (string, error) {
 		}
 	}
 
-	str, err := json.Marshal(m)
+	return m
+}
 
-	return string(str), err
+// JSON returns a json resultset representation
+func (r Resultset) JSON(errorIfEmpty bool) (string, error) {
+	if len(r.records) < 1 {
+		if errorIfEmpty {
+			return "[]", fmt.Errorf("empty resultset")
+		} else {
+			return "[]", nil
+		}
+	}
+
+	m := r.Map()
+
+	j, err := json.Marshal(m)
+
+	return string(j), err
 }
