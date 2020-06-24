@@ -136,7 +136,7 @@ func TestDBLink_GetMany(t *testing.T) {
 			fmt.Printf("id:%d\ttxt:%s\tdec:%f\tx:%d\n", row.Int64("id"), row.String("txt"), row.Float64("dec"), row.Int64("x"))
 		}
 
-		t.Logf(rs.JSON())
+		t.Logf(rs.JSON(false))
 	}
 }
 
