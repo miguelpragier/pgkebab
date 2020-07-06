@@ -67,6 +67,15 @@ func (r *Resultset) Rewind() {
 	r.pointer = resultsetFirstRow
 }
 
+// Rows returns a row array from the current resultset
+func (r *Resultset) Rows() ([]Row, error) {
+	if r == nil || len(r.records) == 0 {
+		return nil, fmt.Errorf("resultset is empty")
+	}
+
+	return r.records, nil
+}
+
 // Map returns the resultset as a []map[string]interface{}
 // If the resultset is empty, returns nil
 func (r Resultset) Map() []map[string]interface{} {
