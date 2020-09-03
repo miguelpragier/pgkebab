@@ -269,3 +269,14 @@ func (r Row) JSONStruct(key string, target interface{}) error {
 
 	return nil
 }
+
+// Map returns the current tuple as map[string]interface{}
+func (r Row) Map() map[string]interface{} {
+	m := make(map[string]interface{})
+
+	for k, v := range r.tuple {
+		m[k] = v
+	}
+
+	return m
+}
