@@ -18,16 +18,17 @@ package main
 
 import (
 	"fmt"
-    "os"
+	"os"
+
 	"github.com/miguelpragier/pgkebab"
 )
 
-func main(){
-    var (
-        db *pgkebab.DBLink
-    	cs = pgkebab.ConnStringDirect(os.Getenv("{YOURAPPCONNECTIONSTRING}"))
-    	opts = pgkebab.Options(cs, 10, 10, 5, 5, 10, true)
-    )
+func main() {
+	var (
+		db   *pgkebab.DBLink
+		cs   = pgkebab.ConnStringDirect(os.Getenv("{YOURAPPCONNECTIONSTRING}"))
+		opts = pgkebab.Options(cs, 10, 10, 5, 5, 10, true)
+	)
 
 	if _db, err := pgkebab.NewConnected(opts); err != nil {
 		t.Fatal(err)
@@ -35,18 +36,17 @@ func main(){
 		db = _db
 	}
 
-    row, err := db.GetOne("SELECT name, status_id FROM customer WHERE id=$1",customerID)
+	row, err := db.GetOne("SELECT name, status_id FROM customer WHERE id = $1", customerID)
+	if err != nil {
+		handleError(err)
+		return
+	}
 
-    if err != nil {
-        handleError(err)
-        return
-    }
-    
-    fmt.Println("The customer %s has status %d\n", row.String("name"), row.Int64("status_id"))
-    
-    if n, err := db.Count("customer"); err == nil {
-        fmt.Println("The table customer got %d rows\n", n)
-    }
+	fmt.Println("The customer %s has status %d\n", row.String("name"), row.Int64("status_id"))
+
+	if n, err := db.Count("customer"); err == nil {
+		fmt.Println("The table customer got %d rows\n", n)
+	}
 }
 ```
 ##### Dependencies:
