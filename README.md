@@ -18,35 +18,43 @@ package main
 
 import (
 	"fmt"
-    "os"
 	"github.com/miguelpragier/pgkebab"
+	"log"
 )
 
-func main(){
-    var (
-        db *pgkebab.DBLink
-    	cs = pgkebab.ConnStringDirect(os.Getenv("{YOURAPPCONNECTIONSTRING}"))
-    	opts = pgkebab.Options(cs, 10, 10, 5, 5, 10, true)
-    )
+func main() {
+	const (
+		connectionTimeout                  = 10
+		executiontionTimeout               = 10
+		connectionMaxAttempts              = 5
+		connectionMaxMinutesRetrying       = 5
+		secondsBetweenReconnectionAttempts = 10
+		debugLogPrint                      = true
+	)
 
-	if _db, err := pgkebab.NewConnected(opts); err != nil {
-		t.Fatal(err)
-	} else {
-		db = _db
+	var (
+		cs         = pgkebab.ConnStringEnvVar("{YOURAPPCONNECTIONSTRING}")
+		opts       = pgkebab.Options(cs, connectionTimeout, executiontionTimeout, connectionMaxAttempts, connectionMaxMinutesRetrying, secondsBetweenReconnectionAttempts, debugLogPrint)
+		customerID = 1
+	)
+
+	db, errcnx := pgkebab.NewConnected(opts)
+
+	if errcnx != nil {
+		log.Fatal(errcnx)
 	}
 
-    row, err := db.GetOne("SELECT name, status_id FROM customer WHERE id=$1",customerID)
+	if row, err := db.GetOne("SELECT name, status_id FROM customers WHERE id=$1", customerID); err != nil {
+		log.Fatal(err)
+	} else {
+		fmt.Println("the customer", row.String("name"), "has status", row.Int64("status_id"))
+	}
 
-    if err != nil {
-        handleError(err)
-        return
-    }
-    
-    fmt.Println("The customer %s has status %d\n", row.String("name"), row.Int64("status_id"))
-    
-    if n, err := db.Count("customer"); err == nil {
-        fmt.Println("The table customer got %d rows\n", n)
-    }
+	if n, err := db.GetCount("customers"); err != nil {
+		log.Fatal(err)
+	} else {
+		fmt.Println("table customer counts", n, "rows")
+	}
 }
 ```
 ##### Dependencies:
