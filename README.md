@@ -3,7 +3,9 @@
 ![Go Version](https://img.shields.io/badge/GO%20version-%3E%3D1.13-blue)
 
 # PGKebab
-GOLang PostgreSQL Helper Operators Over [PQ](https://github.com/lib/pq/)
+### GOLang PostgreSQL Helper Over [PQ](https://github.com/lib/pq/)
+##### Makes PostgreSQL handling as easy and simple as GOlang
+    Replace heavy ORMs and dense routines with simple SQL queries
 ---
 ![PGKebab](./etc/img/pgkebab.png "PGKebab")
 <br>
