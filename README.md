@@ -1,3 +1,7 @@
+![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg) ![GitHub](https://img.shields.io/badge/goDoc-Yes!-blue.svg) 
+[![Go Report Card](https://goreportcard.com/badge/github.com/miguelpragier/pgkebab?update)](https://goreportcard.com/report/github.com/miguelpragier/pgkebab) 
+![Go Version](https://img.shields.io/badge/GO%20version-%3E%3D1.13-blue)
+
 # PGKebab
 GOLang PostgreSQL Helper Operators Over [PQ](https://github.com/lib/pq/)
 ---
